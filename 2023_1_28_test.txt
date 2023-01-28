@@ -1,0 +1,91 @@
+問題１
+①データベース
+②RDB
+③テーブル
+④カラム
+⑤レコード
+⑥値
+⑦sql
+⑧mysql
+⑨./Mysql -u root -p
+⑩データ型
+
+問題２
+MariaDB [(none)]> CREATE DATABASE coachtest;
+MariaDB [(none)]> USE coachtest;
+Database changed
+MariaDB [coachtest]> CREATE TABLE products (id int AUTO_INCREMENT PRIMARY KEY NOT NULL, name varchar(20) NOT NULL, price
+ int NOT NULL, expiration_date date NOT NULL, number int NOT NULL);
+Query OK, 0 rows affected (0.025 sec)
+
+MariaDB [coachtest]> INSERT INTO products (id, name, price, expiration_date, number) VALUES (1, 250, 2021-04-17, 3);
+ERROR 1136 (21S01): Column count doesn't match value count at row 1
+MariaDB [coachtest]> INSERT INTO products (id, name, price, expiration_date, number) VALUES (1, '納豆', 250, 2021-04-17, 3);
+Query OK, 1 row affected, 1 warning (0.006 sec)
+
+MariaDB [coachtest]>  INSERT INTO products (id, name, price, expiration_date, number) VALUES (2, '豆腐', 170, 2021-04-23, 2);
+Query OK, 1 row affected, 1 warning (0.011 sec)
+
+MariaDB [coachtest]> INSERT INTO products (id, name, price, expiration_date, number) VALUES (3, '玉ねぎ', 120, 2021-04-2
+1, 4);
+Query OK, 1 row affected, 1 warning (0.011 sec)
+
+MariaDB [coachtest]>  INSERT INTO products (id, name, price, expiration_date, number) VALUES (4, 'ニンニク', 250, 2021-0
+4-09, 5);
+Query OK, 1 row affected, 1 warning (0.016 sec)
+
+MariaDB [coachtest]> INSERT INTO products (id, name, price, expiration_date, number) VALUES (5, 'キムチ', 300, 2021-04-2
+2, 2);
+Query OK, 1 row affected, 1 warning (0.003 sec)
+MariaDB [coachtest]> UPDATE products SET expiration_date = '2021-04-17' WHERE id = 1;
+Query OK, 1 row affected (0.012 sec)
+Rows matched: 1  Changed: 1  Warnings: 0
+MariaDB [coachtest]> UPDATE products SET expiration_date = '2021-04-23' WHERE id = 2;
+Query OK, 1 row affected (0.011 sec)
+Rows matched: 1  Changed: 1  Warnings: 0
+
+MariaDB [coachtest]> UPDATE products SET expiration_date = '2021-04-21' WHERE id = 3;
+Query OK, 1 row affected (0.012 sec)
+Rows matched: 1  Changed: 1  Warnings: 0
+
+MariaDB [coachtest]> UPDATE products SET expiration_date = '2021-04-09' WHERE id = 4;
+Query OK, 1 row affected (0.011 sec)
+Rows matched: 1  Changed: 1  Warnings: 0
+
+MariaDB [coachtest]> UPDATE products SET expiration_date = '2021-04-22' WHERE id = 5;
+Query OK, 1 row affected (0.011 sec)
+Rows matched: 1  Changed: 1  Warnings: 0
+MariaDB [coachtest]> DESCRIBE products;
++-----------------+-------------+------+-----+---------+----------------+
+| Field           | Type        | Null | Key | Default | Extra          |
++-----------------+-------------+------+-----+---------+----------------+
+| id              | int(11)     | NO   | PRI | NULL    | auto_increment |
+| name            | varchar(20) | NO   |     | NULL    |                |
+| price           | int(11)     | NO   |     | NULL    |                |
+| expiration_date | date        | NO   |     | NULL    |                |
+| number          | int(11)     | NO   |     | NULL    |                |
++-----------------+-------------+------+-----+---------+----------------+
+5 rows in set (0.017 sec)
+
+MariaDB [coachtest]> SELECT name, expiration_date FROM products;
++----------+-----------------+
+| name     | expiration_date |
++----------+-----------------+
+| 納豆     | 2021-04-17      |
+| 豆腐     | 2021-04-23      |
+| 玉ねぎ   | 2021-04-21      |
+| ニンニク | 2021-04-09      |
+| キムチ   | 2021-04-22      |
++----------+-----------------+
+5 rows in set (0.000 sec)
+
+MariaDB [coachtest]> SELECT * FROM products WHERE price >= 250 OR number <3 ;
++----+----------+-------+-----------------+--------+
+| id | name     | price | expiration_date | number |
++----+----------+-------+-----------------+--------+
+|  1 | 納豆     |   250 | 2021-04-17      |      3 |
+|  2 | 豆腐     |   170 | 2021-04-23      |      2 |
+|  4 | ニンニク |   250 | 2021-04-09      |      5 |
+|  5 | キムチ   |   300 | 2021-04-22      |      2 |
++----+----------+-------+-----------------+--------+
+4 rows in set (0.010 sec)
